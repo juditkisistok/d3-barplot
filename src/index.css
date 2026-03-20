@@ -77,6 +77,10 @@ svg > g > g:hover > text {
   dominant-baseline: middle;
 }
 
+.tooltip-group {
+  transition: opacity 0.3s ease;
+}
+
 .tooltip-line {
   stroke: #c26b5a;
   stroke-width: 1.5;

@@ -2,7 +2,8 @@ import AxisBottom from "./assets/AxisBottom";
 import { useState } from "react";
 
 export default function Barplot({ data, width, height, axisY, axisX, margin }) {
-  const [hovered, setHovered] = useState(null);
+  const [hovered, setHovered] = useState(false);
+  const [tooltipData, setTooltipData] = useState(null);
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -15,8 +16,11 @@ export default function Barplot({ data, width, height, axisY, axisX, margin }) {
         {data.map((d) => (
           <g
             key={d.country}
-            onMouseEnter={() => setHovered(d.country)}
-            onMouseLeave={() => setHovered(null)}
+            onMouseEnter={() => {
+              setTooltipData(d);
+              setHovered(true);
+            }}
+            onMouseLeave={() => setHovered(false)}
           >
             <text
               x={-12}
@@ -37,20 +41,19 @@ export default function Barplot({ data, width, height, axisY, axisX, margin }) {
             />
           </g>
         ))}
-        {hovered &&
+        {tooltipData &&
           (() => {
-            const d = data.find((d) => d.country === hovered);
-            const x = axisX(d.students);
-            const y = axisY(hovered) + axisY.bandwidth() / 2;
+            const x = axisX(tooltipData.students);
+            const y = axisY(tooltipData.country) + axisY.bandwidth() / 2;
             return (
-              <g>
+              <g style={{ opacity: hovered ? 1 : 0 }} className="tooltip-group">
                 <path
                   d={`M ${x + 4} ${y} C ${x + 15} ${y - 12}, ${x + 15} ${y + 12}, ${x + 28} ${y}`}
                   fill="none"
                   className="tooltip-line"
                 />
                 <text x={x + 32} y={y} className="tooltip">
-                  {d.students}
+                  {tooltipData.students}
                 </text>
               </g>
             );
