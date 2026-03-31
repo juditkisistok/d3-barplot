@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import "./home.css";
 
 export default function Home() {
   return (
-    <div>
+    <div className="home">
       <h1>
         D3{" "}
         <svg

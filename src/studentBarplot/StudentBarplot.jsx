@@ -1,6 +1,6 @@
 import Barplot from "./Barplot";
 import * as d3 from "d3";
-import "../App.css";
+import "./studentBarplot.css";
 import { Link } from "react-router-dom";
 import {
   innerWidth,
@@ -24,7 +24,7 @@ export default function StudentBarplot() {
     .range([0, innerWidth])
     .nice();
   return (
-    <div>
+    <div className="student-barplot">
       <h1>
         D3{" "}
         <svg
