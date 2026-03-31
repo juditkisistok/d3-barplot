@@ -6,8 +6,6 @@
   flex-direction: column;
   align-items: flex-start;
   min-height: 100vh;
-  width: 700px;
-  margin: 0 auto;
   padding: 110px 0;
   background-color: #ffffff;
 }

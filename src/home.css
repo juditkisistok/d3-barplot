@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 32px;
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
   background:
     radial-gradient(ellipse at 0% 0%, #d8e2de 0%, transparent 55%),
     radial-gradient(ellipse at 100% 100%, #edd8dc 0%, transparent 55%);
