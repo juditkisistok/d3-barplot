@@ -25,32 +25,44 @@ export default function EconomistBarplot() {
     .scaleBand()
     .domain(data.map((d) => d.name))
     .range([0, height])
-    .padding(0.4);
+    .paddingInner(0.4)
+    .paddingOuter(0.1);
 
   // create bars
-  const allBars = data.map((d, i) => (
-    <rect
-      key={i}
-      x={0}
-      y={yScale(d.name)}
-      width={xScale(d.count)}
-      height={yScale.bandwidth()}
-      fill={barColor}
-    />
-  ));
+  const allBars = data.map((d, i) => {
+    const y = yScale(d.name);
+    if (y === undefined) return null;
 
-  const allLabels = data.map((d, i) => (
-    <text
-      key={i}
-      x={d.count > 7 ? 5 : xScale(d.count) + 5}
-      y={yScale(d.name) + yScale.bandwidth() / 2}
-      alignmentBaseline="middle"
-      fontSize="14px"
-      fill={d.count > 7 ? "#fff" : barColor}
-    >
-      {d.name}
-    </text>
-  ));
+    return (
+      <rect
+        key={i}
+        x={0}
+        y={yScale(d.name)}
+        width={xScale(d.count)}
+        height={yScale.bandwidth()}
+        fill={barColor}
+      />
+    );
+  });
+
+  const allLabels = data.map((d, i) => {
+    const y = yScale(d.name);
+    if (y === undefined) return null;
+
+    return (
+      <text
+        key={i}
+        x={d.count > 7 ? 7 : xScale(d.count) + 5}
+        y={yScale(d.name) + yScale.bandwidth() / 2}
+        alignmentBaseline="middle"
+        fontSize="14px"
+        fill={d.count > 7 ? "#fff" : barColor}
+        opacity={d.count > 7 ? 0.9 : 1}
+      >
+        {d.name}
+      </text>
+    );
+  });
 
   const topLine = (
     <line
