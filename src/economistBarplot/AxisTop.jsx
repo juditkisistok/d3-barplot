@@ -1,4 +1,4 @@
-export default function AxisTop({ axisX, innerHeight }) {
+export default function AxisTop({ axisX, height }) {
   const ticks = axisX.ticks(10);
   return (
     <g>
@@ -6,7 +6,7 @@ export default function AxisTop({ axisX, innerHeight }) {
         <g key={tick} transform={`translate(${axisX(tick)}, 0)`}>
           <line
             y1={0}
-            y2={innerHeight}
+            y2={height}
             stroke={tick === 0 ? "#000" : "#808080"}
             opacity={tick === 0 ? 1 : 0.2}
           />

@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import "./economistBarplot.css";
 import { data, width, height, barColor } from "./Constants";
 import AxisTop from "./AxisTop";
+import EconomistHeader from "./EconomistHeader";
 
 export default function EconomistBarplot() {
   // sort data by count in descending order
@@ -34,66 +35,42 @@ export default function EconomistBarplot() {
     if (y === undefined) return null;
 
     return (
-      <rect
-        key={i}
-        x={0}
-        y={yScale(d.name)}
-        width={xScale(d.count)}
-        height={yScale.bandwidth()}
-        fill={barColor}
-      />
+      <g key={i}>
+        <rect
+          key={i}
+          x={0}
+          y={y}
+          width={xScale(d.count)}
+          height={yScale.bandwidth()}
+          fill={barColor}
+        />
+
+        <text
+          key={i}
+          x={d.count > 7 ? 7 : xScale(d.count) + 5}
+          y={y + yScale.bandwidth() / 2}
+          alignmentBaseline="middle"
+          fontSize="14px"
+          fill={d.count > 7 ? "#fff" : barColor}
+          opacity={d.count > 7 ? 0.9 : 1}
+        >
+          {d.name}
+        </text>
+      </g>
     );
   });
-
-  const allLabels = data.map((d, i) => {
-    const y = yScale(d.name);
-    if (y === undefined) return null;
-
-    return (
-      <text
-        key={i}
-        x={d.count > 7 ? 7 : xScale(d.count) + 5}
-        y={yScale(d.name) + yScale.bandwidth() / 2}
-        alignmentBaseline="middle"
-        fontSize="14px"
-        fill={d.count > 7 ? "#fff" : barColor}
-        opacity={d.count > 7 ? 0.9 : 1}
-      >
-        {d.name}
-      </text>
-    );
-  });
-
-  const topLine = (
-    <line
-      x1={0}
-      y1={0}
-      x2={width - 50}
-      y2={0}
-      stroke="rgb(229, 1, 28)"
-      strokeWidth={1}
-    />
-  );
-
-  const topBox = (
-    <rect x={0} y={0} width={40} height={10} fill="rgb(229, 1, 28)" />
-  );
 
   return (
     <div className="economist-barplot">
-      <svg width={width} height={10} overflow={"visible"}>
-        <g>
-          {topLine}
-          {topBox}
-        </g>
+      <svg width={width} height={10} overflow="visible">
+        <EconomistHeader width={width} />
       </svg>
       <h1>Escape artists</h1>
       <p>Number of laboratory-acquired infections, 1970-2021</p>
       <svg width={width} height={height} overflow={"visible"}>
         <g>
-          <AxisTop axisX={xScale} innerWidth={width} innerHeight={height} />
+          <AxisTop axisX={xScale} height={height} />
           {allBars}
-          {allLabels}
         </g>
       </svg>
       <div className="source-box">
