@@ -1,0 +1,9 @@
+.economist-barplot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  min-height: 100vh;
+  background-color: #ffffff;
+}

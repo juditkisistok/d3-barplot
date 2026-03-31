@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import "./economistBarplot.css";
 import { data, width, height, barColor } from "./Constants";
 
 export default function EconomistBarplot() {

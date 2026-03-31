@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 32px;
+  min-height: 100vh;
+  background-color: #f0ede8;
 }
 
 .student-barplot h1 {
