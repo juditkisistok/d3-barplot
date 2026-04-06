@@ -50,7 +50,7 @@ export default function EconomistBarplot() {
           key={i}
           x={d.count > 7 ? 7 : xScale(d.count) + 5}
           y={y + yScale.bandwidth() / 2}
-          alignmentBaseline="middle"
+          alignmentBaseline="central"
           fontSize="14px"
           fill={d.count > 7 ? "#fff" : barColor}
           opacity={d.count > 7 ? 0.9 : 1}
